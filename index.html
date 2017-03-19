@@ -9,7 +9,10 @@
 	<div id="app">
 		<h1>{{ title }}</h1>
 		<ol>
-			<li v-for="item in items">{{ item }}</li>
+			<li v-for="item in items" v-bind:class="{ 'checked': item.checked }">
+				<label>
+					<input type="checkbox" v-model="item.checked" /> {{ item.text }}
+				</label></li>
 		</ol>
 	</div>
 
@@ -17,7 +20,12 @@
 <script>
 	var data = {
 		title: 'Do one thing today.',
-		items: ['Read the vueJS book', 'build something', 'publish it']
+		items: [
+			{ text: 'Buy the vueJS book ', checked: true }, 
+			{ text: 'Read the vueJS book', checked: false }, 
+			{ text: 'build something', checked: false }, 
+			{ text: 'publish it', checked: false }
+		]
 	};
 	new Vue({
 		el: '#app',
