@@ -14,7 +14,7 @@
 					<input type="checkbox" v-model="item.checked" /> {{ item.text }}
 				</label></li>
 		</ol>
-		<input v-model="newItem" v-on:keyup.enter="addItem" placeholder="add todo item" type="text">
+		<input v-show="items.length<8" v-model="newItem" v-on:keyup.enter="addItem" placeholder="add todo item" type="text">
 	</div>
 
 <script src="/assets/js/vendor/vue_2.2.4.js"></script>
