@@ -15,6 +15,7 @@
 				</label></li>
 		</ol>
 		<input v-show="items.length<8" v-model="newItem" v-on:keyup.enter="addItem" placeholder="add todo item" type="text">
+		<button v-on:click="reset">clear list</button>
 	</div>
 
 <script src="/assets/js/vendor/vue_2.2.4.js"></script>
@@ -42,6 +43,9 @@
 					});
 					this.newItem = '';
 				}
+			},
+			reset: function () {
+				this.items = [];
 			}
 		}
 	});
