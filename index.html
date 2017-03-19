@@ -1,0 +1,24 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>Do one thing today</title>
+</head>
+<body>
+
+	<div id="app">
+		<h1>{{ title }}</h1>
+	</div>
+
+<script src="/assets/js/vendor/vue_2.2.4.js"></script>
+<script>
+	var data = {
+		title: 'Do one thing today.'
+	};
+	new Vue({
+		el: '#app',
+		data: data
+	});
+</script>
+</body>
+</html>
