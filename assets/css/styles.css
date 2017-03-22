@@ -20,7 +20,6 @@ html {
 
 body, html, main {
 	font-size: 120%;
-	height: 100%;
 	margin: 0;
 	padding: 0;
 }
@@ -49,7 +48,7 @@ h1 {
 	font-size: 5rem;
 }
 
-h1>span {
+h1>span.highlight {
 	color: #D31B33;
 }
 
@@ -61,6 +60,10 @@ input[type=checkbox] {
 	display: none;
 }
 
+li {
+	line-height: 160%;
+}
+
 li:nth-child(-n+3) {
 	font-size: 100%;
 	font-weight: bold;
@@ -69,4 +72,25 @@ li:nth-child(-n+3) {
 li:first-child {
 	font-size: 150%;
 	font-weight: bold;
+}
+
+@media screen and (min-width: 1600px) {
+	body {
+		display: flex;
+	}
+	body > * {
+		max-width: none;
+		flex: 0 1 50%;
+		padding: 2rem 4rem;
+		align-self: center;
+	}
+	header {
+		border-right: 2px white solid;
+		border-bottom: none;
+		text-align: right;
+
+	}
+	header span {
+		display: block;
+	}
 }
