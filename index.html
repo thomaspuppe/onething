@@ -20,19 +20,14 @@
 					<input type="checkbox" v-model="item.checked" /> {{ item.text }}
 				</label></li>
 		</ol>
-		<input v-show="items.length<7" v-model="newItem" v-on:keyup.enter="addItem" placeholder="add todo item" type="text">
-		<button v-on:click="reset">clear list</button>
+		<p><input v-show="items.length<7" v-model="newItem" v-on:keyup.enter="addItem" placeholder="add todo item" type="text"></p>
+		<p><button v-on:click="reset">clear list</button></p>
 	</main>
 
 	<script src="/assets/js/vendor/vue_2.2.4.js"></script>
 	<script>
 		var data = {
-			items: [
-				{ text: 'Buy the vueJS book ', checked: true }, 
-				{ text: 'Read the vueJS book', checked: false }, 
-				{ text: 'build something', checked: false }, 
-				{ text: 'publish it', checked: false }
-			],
+			items: [],
 			newItem: ''
 		};
 		new Vue({

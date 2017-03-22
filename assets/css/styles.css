@@ -31,6 +31,20 @@ h1>span {
 	color: #D31B33;
 }
 
-.checked label {
+.checked {
 	text-decoration: line-through;
+}
+
+input[type=checkbox] {
+	display: none;
+}
+
+li:nth-child(-n+3) {
+	font-size: 100%;
+	font-weight: bold;
+}
+
+li:first-child {
+	font-size: 150%;
+	font-weight: bold;
 }
