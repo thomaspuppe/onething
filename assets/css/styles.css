@@ -73,6 +73,25 @@ li:nth-child(-n+3) {
 li:first-child {
 	font-size: 150%;
 	font-weight: bold;
+	line-height: 240%;
+}
+
+input {
+	border: none;
+	background: none;
+	color: #FFF;
+	border-bottom: 1px #FFF solid;
+	line-height: 2.5;
+	font-size: 1.2rem;
+	width: 80%;
+}
+
+button {
+	border: 1px #FFF solid;
+	background: none;
+	color: #FFF;
+	line-height: 1.5;
+	padding: 0.2em 0.5em;
 }
 
 @media screen and (min-width: 1600px) {
