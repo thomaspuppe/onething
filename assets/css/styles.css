@@ -26,8 +26,8 @@ body, html, main {
 }
 
 body {
-	background: #FDF06F;
-	color: #28292B;
+	background: #28292B;
+	color: #FFF;
 }
 
 body > * {
