@@ -27,6 +27,7 @@ body, html, main {
 body {
 	background: #28292B;
 	color: #FFF;
+	padding: 0 1.5rem;
 }
 
 body > * {
