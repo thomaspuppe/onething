@@ -21,7 +21,7 @@
 				</label></li>
 		</ol>
 		<p v-show="items.length<7"><input v-model="newItem" v-on:keyup.enter="addItem" placeholder="add todo item" type="text"></p>
-		<p v-show="items.length"><button v-on:click="reset">clear list</button></p>
+		<p v-show="items.length"><button v-show="numberOfCheckedItems" v-on:click="cleanup">clear completed</button>&nbsp;<button v-on:click="reset">clear list</button></p>
 	</main>
 
 	<script src="./assets/js/vendor/vue_2.2.4.js"></script>

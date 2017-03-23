@@ -11,6 +11,11 @@
 		}
 	};
 
+	var filters = {
+		unchecked: function (items) { return items.filter(function(item){ return !item.checked; }) },
+		checked: function (items) { return items.filter(function(item){ return item.checked; }) }
+	};
+
 	new Vue({
 		el: '#app',
 		data: {
@@ -21,6 +26,11 @@
 			items: {
 				deep: true,
 				handler: storage.save
+			}
+		},
+		computed: {
+			numberOfCheckedItems: function() {
+				return filters.checked(this.items).length;
 			}
 		},
 		methods: {
@@ -36,6 +46,9 @@
 			},
 			reset: function () {
 				this.items = [];
+			},
+			cleanup: function () {
+				this.items = filters.unchecked(this.items);
 			}
 		}
 	});
