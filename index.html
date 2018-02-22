@@ -4,7 +4,7 @@
     <meta charset="utf-8">
     <title>Do one thing today.</title>
     <meta name="viewport" content="initial-scale=1, minimum-scale=1, maximum-scale=1, user-scalable=no">
-    <link rel="manifest" href="manifest.json"></link>
+    <link rel="manifest" href="./manifest.json"></link>
     <link rel="stylesheet" href="./assets/css/styles.css">
 </head>
 <body>
@@ -25,14 +25,14 @@
 		<p v-show="items.length"><button v-show="numberOfCheckedItems" v-on:click="cleanup">clear completed</button>&nbsp;<button v-on:click="reset">clear list</button></p>
 	</main>
 
-	<script src="./assets/js/vendor/vue_2.2.4.js"></script>
+	<script src="./assets/js/vendor/vue_2.5.13.min.js"></script>
 	<script src="./assets/js/app.js"></script>
 	<script>
 	if (navigator.serviceWorker.controller) {
 	  if (console) console.log('[PWA Builder] active service worker found, no need to register');
 	} else {
 	  //Register the ServiceWorker
-	  navigator.serviceWorker.register('onething-sw.js', {
+	  navigator.serviceWorker.register('./onething-sw.js', {
 	    scope: './'
 	  }).then(function(reg) {
 	    if (console) console.log('Service worker has been registered for scope:'+ reg.scope);
