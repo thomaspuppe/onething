@@ -1,5 +1,4 @@
 // One Thing App - Vanilla JS Implementation
-// Migrating from Vue.js to vanilla JavaScript
 
 class OneThingApp {
     constructor() {
