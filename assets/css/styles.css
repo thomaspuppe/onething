@@ -1,3 +1,16 @@
+@font-face {
+  font-family: 'Montserrat-Black';
+  src: url('../../fonts/Montserrat-Black.eot');
+  src: local('Montserrat Black'), local('Montserrat-Black'),
+    url('../../fonts/Montserrat-Black.eot?#iefix') format('embedded-opentype'),
+    url('../../fonts/Montserrat-Black.woff2') format('woff2'),
+    url('../../fonts/Montserrat-Black.woff') format('woff'),
+    url('../../fonts/Montserrat-Black.ttf') format('truetype'),
+    url('../../fonts/Montserrat-Black.svg#Montserrat-Black') format('svg');
+  font-weight: 900;
+  font-style: normal;
+}
+
 html {
 	font-family: sans-serif;
 }
@@ -10,8 +23,8 @@ body, html, main {
 }
 
 body {
-	background: #FDF06F;
-	color: #28292B;
+	background: #28292B;
+	color: #FFF;
 }
 
 body > * {
@@ -27,6 +40,12 @@ header {
 	border-bottom: 2px currentColor solid;
 }
 
+h1 {
+	font-family: 'Montserrat-Black', sans-serif;
+	font-weight: 900;
+	text-transform: uppercase;
+}
+
 h1>span {
 	color: #D31B33;
 }
@@ -39,6 +58,25 @@ input[type=checkbox] {
 	display: none;
 }
 
+input {
+	background: transparent;
+	border: none;
+	border-bottom: 2px currentColor solid;
+	color: #FFF;
+	font-size: inherit;
+	padding: 0.5em 0;
+	outline: none;
+}
+
+button {
+	background: none;
+	border: 2px #FFF solid;
+	color: #FFF;
+	cursor: pointer;
+	font-size: inherit;
+	padding: 0.5em 1em;
+}
+
 li:nth-child(-n+3) {
 	font-size: 100%;
 	font-weight: bold;
@@ -47,4 +85,33 @@ li:nth-child(-n+3) {
 li:first-child {
 	font-size: 150%;
 	font-weight: bold;
+}
+
+@media (min-width: 1200px) {
+	body {
+		display: flex;
+		flex-direction: column;
+		font-size: 150%;
+	}
+	
+	body > * {
+		margin: 3rem auto;
+		max-width: 1000px;
+	}
+	
+	header {
+		border-bottom: none;
+		border-right: 2px currentColor solid;
+		flex: 1 0 auto;
+		margin: 3rem;
+		max-width: none;
+		padding-right: 3rem;
+		text-align: right;
+		width: auto;
+	}
+	
+	h1 {
+		font-size: 250%;
+		margin: 0 0 1rem;
+	}
 }
