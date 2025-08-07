@@ -20,7 +20,8 @@ class OneThingApp {
     bindElements() {
         this.elements.list = document.querySelector('ol');
         this.elements.input = document.querySelector('input[type="text"]');
-        this.elements.clearButton = document.querySelector('button');
+        this.elements.clearAllButton = document.querySelector('#clear-all');
+        this.elements.clearCompletedButton = document.querySelector('#clear-completed');
     }
 
     setupEventListeners() {
@@ -31,9 +32,14 @@ class OneThingApp {
             }
         });
 
-        // Clear button event listener
-        this.elements.clearButton.addEventListener('click', () => {
+        // Clear all button event listener
+        this.elements.clearAllButton.addEventListener('click', () => {
             this.reset();
+        });
+
+        // Clear completed button event listener
+        this.elements.clearCompletedButton.addEventListener('click', () => {
+            this.clearCompleted();
         });
     }
 
@@ -48,6 +54,11 @@ class OneThingApp {
     updateInputVisibility() {
         const inputContainer = this.elements.input.parentElement;
         inputContainer.style.display = this.state.items.length < 7 ? 'block' : 'none';
+    }
+
+    updateClearCompletedVisibility() {
+        const hasCompleted = this.state.items.some(item => item.checked);
+        this.elements.clearCompletedButton.style.display = hasCompleted ? 'inline-block' : 'none';
     }
 
     renderListItem(item, index) {
@@ -82,6 +93,9 @@ class OneThingApp {
         
         // Update input visibility
         this.updateInputVisibility();
+        
+        // Update clear completed button visibility
+        this.updateClearCompletedVisibility();
     }
 
     // Core app methods (matching Vue.js functionality)
@@ -104,6 +118,11 @@ class OneThingApp {
 
     reset() {
         this.state.items = [];
+        this.render();
+    }
+
+    clearCompleted() {
+        this.state.items = this.state.items.filter(item => !item.checked);
         this.render();
     }
 }
