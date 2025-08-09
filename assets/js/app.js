@@ -14,6 +14,7 @@ class OneThingApp {
     init() {
         this.bindElements();
         this.setupEventListeners();
+        this.loadFromUrl();
         this.render();
     }
 
@@ -96,6 +97,9 @@ class OneThingApp {
         
         // Update clear completed button visibility
         this.updateClearCompletedVisibility();
+        
+        // Update URL with current state
+        this.updateUrl();
     }
 
     // Core app methods (matching Vue.js functionality)
@@ -124,6 +128,33 @@ class OneThingApp {
     clearCompleted() {
         this.state.items = this.state.items.filter(item => !item.checked);
         this.render();
+    }
+
+    // URL persistence methods
+    loadFromUrl() {
+        const hash = window.location.hash.slice(1); // Remove # prefix
+        if (hash) {
+            try {
+                const decoded = JSON.parse(atob(hash));
+                if (Array.isArray(decoded)) {
+                    this.state.items = decoded;
+                }
+            } catch (error) {
+                console.warn('Failed to load todos from URL:', error);
+                // Invalid hash, keep empty state
+            }
+        }
+    }
+
+    updateUrl() {
+        if (this.state.items.length === 0) {
+            // Clear hash for empty list
+            history.replaceState(null, '', window.location.pathname + window.location.search);
+        } else {
+            // Encode items to base64 and update hash
+            const encoded = btoa(JSON.stringify(this.state.items));
+            history.replaceState(null, '', `#${encoded}`);
+        }
     }
 }
 
