@@ -11,8 +11,7 @@ html {
 }
 
 body,
-html,
-main {
+html {
 	margin: 0;
 	padding: 0;
 }
@@ -56,19 +55,22 @@ input[type="checkbox"] {
 }
 
 input {
+	background: transparent;
 	border: none;
-	background: none;
+	border-bottom: 1px solid #FFF;
 	color: #FFF;
-	border-bottom: 1px #FFF solid;
-	line-height: 2.5;
 	font-size: 1.2rem;
+	line-height: 2.5;
+	outline: none;
 	width: 80%;
 }
 
 button {
-	border: 1px #FFF solid;
 	background: none;
+	border: 1px solid #FFF;
 	color: #FFF;
+	cursor: pointer;
+	font-size: inherit;
 	line-height: 1.5;
 	padding: 0.2em 0.5em;
 }
@@ -77,15 +79,14 @@ li {
 	line-height: 160%;
 }
 
-li:nth-child(-n+3) {
-	font-size: 100%;
-	font-weight: bold;
-}
-
 li:first-child {
 	font-size: 150%;
 	font-weight: bold;
 	line-height: 240%;
+}
+
+li:nth-child(-n+3) {
+	font-weight: bold;
 }
 
 @media (min-width: 1200px) {
@@ -107,10 +108,11 @@ li:first-child {
 		text-align: right;
 	}
 
-	header span {
-		display: block;
-	}
 	h1 {
 		font-size: 5rem;
+	}
+	
+	header span {
+		display: block;
 	}
 }
