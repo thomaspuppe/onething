@@ -70,7 +70,7 @@ button {
 	border: 1px solid #FFF;
 	color: #FFF;
 	cursor: pointer;
-	font-size: inherit;
+	font-size: initial;
 	line-height: 1.5;
 	padding: 0.2em 0.5em;
 }
