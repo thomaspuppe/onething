@@ -1,56 +1,164 @@
-(function () {
+// One Thing App - Vanilla JS Implementation
 
-	var STORAGE_KEY = 'todos-vuejs';
+class OneThingApp {
+    constructor() {
+        this.state = {
+            items: [],
+            newItem: ''
+        };
+        
+        this.elements = {};
+        this.init();
+    }
 
-	var storage = {
-		fetch: function () {
-			return JSON.parse(localStorage.getItem(STORAGE_KEY) || '[]');
-		},
-		save: function (items) {
-			localStorage.setItem(STORAGE_KEY, JSON.stringify(items));
-		}
-	};
+    init() {
+        this.bindElements();
+        this.setupEventListeners();
+        this.loadFromUrl();
+        this.render();
+    }
 
-	var filters = {
-		unchecked: function (items) { return items.filter(function(item){ return !item.checked; }) },
-		checked: function (items) { return items.filter(function(item){ return item.checked; }) }
-	};
+    bindElements() {
+        this.elements.list = document.querySelector('ol');
+        this.elements.input = document.querySelector('input[type="text"]');
+        this.elements.clearAllButton = document.querySelector('#clear-all');
+        this.elements.clearCompletedButton = document.querySelector('#clear-completed');
+    }
 
-	new Vue({
-		el: '#app',
-		data: {
-			items: storage.fetch(),
-			newItem: ''
-		},
-		watch: {
-			items: {
-				deep: true,
-				handler: storage.save
-			}
-		},
-		computed: {
-			numberOfCheckedItems: function() {
-				return filters.checked(this.items).length;
-			}
-		},
-		methods: {
-			addItem: function () {
-				var text = this.newItem.trim();
-				if (text) {
-					this.items.push({
-						text: text,
-						checked: false
-					});
-					this.newItem = '';
-				}
-			},
-			reset: function () {
-				this.items = [];
-			},
-			cleanup: function () {
-				this.items = filters.unchecked(this.items);
-			}
-		}
-	});
+    setupEventListeners() {
+        // Input field event listeners
+        this.elements.input.addEventListener('keyup', (e) => {
+            if (e.key === 'Enter') {
+                this.addItem();
+            }
+        });
 
-})();
+        // Clear all button event listener
+        this.elements.clearAllButton.addEventListener('click', () => {
+            this.reset();
+        });
+
+        // Clear completed button event listener
+        this.elements.clearCompletedButton.addEventListener('click', () => {
+            this.clearCompleted();
+        });
+    }
+
+    // DOM helper functions
+    createElement(tag, className = '', content = '') {
+        const element = document.createElement(tag);
+        if (className) element.className = className;
+        if (content) element.textContent = content;
+        return element;
+    }
+
+    updateInputVisibility() {
+        const inputContainer = this.elements.input.parentElement;
+        inputContainer.style.display = this.state.items.length < 7 ? 'block' : 'none';
+    }
+
+    updateClearCompletedVisibility() {
+        const hasCompleted = this.state.items.some(item => item.checked);
+        this.elements.clearCompletedButton.style.display = hasCompleted ? 'inline-block' : 'none';
+    }
+
+    renderListItem(item, index) {
+        const li = this.createElement('li', item.checked ? 'checked' : '');
+        
+        const label = this.createElement('label');
+        const checkbox = this.createElement('input');
+        checkbox.type = 'checkbox';
+        checkbox.checked = item.checked;
+        
+        // Add event listener for checkbox
+        checkbox.addEventListener('change', (e) => {
+            this.toggleItem(index, e.target.checked);
+        });
+        
+        label.appendChild(checkbox);
+        label.appendChild(document.createTextNode(' ' + item.text));
+        li.appendChild(label);
+        
+        return li;
+    }
+
+    render() {
+        // Clear existing list
+        this.elements.list.innerHTML = '';
+        
+        // Render all items
+        this.state.items.forEach((item, index) => {
+            const listItem = this.renderListItem(item, index);
+            this.elements.list.appendChild(listItem);
+        });
+        
+        // Update input visibility
+        this.updateInputVisibility();
+        
+        // Update clear completed button visibility
+        this.updateClearCompletedVisibility();
+        
+        // Update URL with current state
+        this.updateUrl();
+    }
+
+    // Core app methods (matching Vue.js functionality)
+    addItem() {
+        const text = this.elements.input.value.trim();
+        if (text) {
+            this.state.items.push({
+                text: text,
+                checked: false
+            });
+            this.elements.input.value = '';
+            this.render();
+        }
+    }
+
+    toggleItem(index, checked) {
+        this.state.items[index].checked = checked;
+        this.render();
+    }
+
+    reset() {
+        this.state.items = [];
+        this.render();
+    }
+
+    clearCompleted() {
+        this.state.items = this.state.items.filter(item => !item.checked);
+        this.render();
+    }
+
+    // URL persistence methods
+    loadFromUrl() {
+        const hash = window.location.hash.slice(1); // Remove # prefix
+        if (hash) {
+            try {
+                const decoded = JSON.parse(atob(hash));
+                if (Array.isArray(decoded)) {
+                    this.state.items = decoded;
+                }
+            } catch (error) {
+                console.warn('Failed to load todos from URL:', error);
+                // Invalid hash, keep empty state
+            }
+        }
+    }
+
+    updateUrl() {
+        if (this.state.items.length === 0) {
+            // Clear hash for empty list
+            history.replaceState(null, '', window.location.pathname + window.location.search);
+        } else {
+            // Encode items to base64 and update hash
+            const encoded = btoa(JSON.stringify(this.state.items));
+            history.replaceState(null, '', `#${encoded}`);
+        }
+    }
+}
+
+// Initialize app when DOM is loaded
+document.addEventListener('DOMContentLoaded', () => {
+    new OneThingApp();
+});
